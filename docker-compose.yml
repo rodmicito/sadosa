@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  sadosa:
+    build:
+      context: .
+      target: production
+    volumes:
+      - ./src:/sadosa/src
+    ports:
+      - $PORT:$PORT
+    env_file:
+      - .env
+    environment:
+      - MONGODB_URI=$MONGODB_URI
+      #- MONGODB_URI=mongodb://mongo:27017/sadosa
+    links:
+      - mongo
+
+  mongo:
+    image: mongo:4.2.0
+    ports:
+      - 27017:27017
